@@ -1,2 +1,5 @@
-package puk.lab5vmathback;public class AppController {
+package puk.lab5vmathback;
+
+
+public class AppController {
 }
