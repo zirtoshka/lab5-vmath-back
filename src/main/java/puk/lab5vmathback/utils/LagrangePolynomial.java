@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class LagrangePolynomial {
+public class LagrangePolynomial implements Polynomial {
     @Getter
     @Setter
     private BigDecimal[] listY;
@@ -31,11 +31,11 @@ public class LagrangePolynomial {
                     );
                 }
             }
-//            System.out.println(currValue.multiply(listY[i]));
             res=res.add(currValue.multiply(listY[i]));
         }
         return res;
     }
+
 
 
 }
