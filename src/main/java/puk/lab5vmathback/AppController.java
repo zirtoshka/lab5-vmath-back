@@ -37,6 +37,11 @@ public class AppController {
                 BigDecimal.valueOf(0.4),
                 BigDecimal.valueOf(0.5),
                 //----
+                BigDecimal.valueOf(0.6),
+                BigDecimal.valueOf(0.7),
+                BigDecimal.valueOf(0.8)
+
+                //-----
 //                BigDecimal.valueOf(0.15),
 //                BigDecimal.valueOf(0.2),
 //                BigDecimal.valueOf(0.33),
@@ -49,6 +54,11 @@ public class AppController {
                 BigDecimal.valueOf(5.44),
                 BigDecimal.valueOf(7.14),
                 //---
+                BigDecimal.valueOf(8.64),
+                BigDecimal.valueOf(10.39),
+                BigDecimal.valueOf(12.09)
+
+                //----
 //                BigDecimal.valueOf(1.25),
 //                BigDecimal.valueOf(2.38),
 //                BigDecimal.valueOf(3.79),
