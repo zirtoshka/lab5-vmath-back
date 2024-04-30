@@ -2,6 +2,7 @@ package puk.lab5vmathback.utils;
 
 import lombok.Getter;
 import lombok.Setter;
+import puk.lab5vmathback.exc.IncorrectNumberOfPoints;
 import puk.lab5vmathback.exc.WrongStepsListXException;
 
 import java.math.BigDecimal;
@@ -13,13 +14,14 @@ public class StirlingPolynomial  implements Polynomial{
     @Setter
     private List<BigDecimal> finiteDiff;
     private final PolynomialIntervalsChecker polynomialIntervalsChecker=new PolynomialIntervalsChecker();
-    public BigDecimal getFun(BigDecimal[] listX, BigDecimal[] listY, BigDecimal x) throws WrongStepsListXException {
+    public BigDecimal getFun(BigDecimal[] listX, BigDecimal[] listY, BigDecimal x) throws WrongStepsListXException, IncorrectNumberOfPoints {
         BigDecimal res= BigDecimal.ZERO;
         boolean check = polynomialIntervalsChecker.checkStepsX(listX);
         if (!check) {
             throw new WrongStepsListXException();
         }
         int numberOfPoints = listX.length;
+        if (numberOfPoints%2==0) throw new IncorrectNumberOfPoints();
 
         BigDecimal mediumX = listX[(numberOfPoints + 1) / 2 - 1];
 

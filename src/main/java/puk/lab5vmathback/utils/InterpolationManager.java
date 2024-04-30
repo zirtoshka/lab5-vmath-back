@@ -2,6 +2,7 @@ package puk.lab5vmathback.utils;
 
 import lombok.Getter;
 import lombok.Setter;
+import puk.lab5vmathback.exc.IncorrectNumberOfPoints;
 import puk.lab5vmathback.exc.WrongStepsListXException;
 
 import java.math.BigDecimal;
@@ -52,6 +53,8 @@ private final BesselPolynomial besselPolynomial=new BesselPolynomial();
 
             } catch (WrongStepsListXException e) {
                 System.out.println("error aaaaaa");
+            }catch (IncorrectNumberOfPoints e){
+                System.out.println("aaaaaaa");
             }
 
             return lagrangePolynomial.getFun(listX, listY, x);

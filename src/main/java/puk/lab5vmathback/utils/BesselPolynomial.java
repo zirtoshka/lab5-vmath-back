@@ -2,6 +2,7 @@ package puk.lab5vmathback.utils;
 
 import lombok.Getter;
 import lombok.Setter;
+import puk.lab5vmathback.exc.IncorrectNumberOfPoints;
 import puk.lab5vmathback.exc.WrongStepsListXException;
 
 import java.math.BigDecimal;
@@ -16,8 +17,9 @@ public class BesselPolynomial implements Polynomial {
 
 
     @Override
-    public BigDecimal getFun(BigDecimal[] listX, BigDecimal[] listY, BigDecimal x) throws WrongStepsListXException {
+    public BigDecimal getFun(BigDecimal[] listX, BigDecimal[] listY, BigDecimal x) throws WrongStepsListXException, IncorrectNumberOfPoints {
         int number = listX.length;
+        if (number%2!=0) throw new IncorrectNumberOfPoints();
         BigDecimal mediumX = listX[(number + 1) / 2 - 1];
         BigDecimal res = BigDecimal.ZERO;
         boolean check = polynomialIntervalsChecker.checkStepsX(listX);
