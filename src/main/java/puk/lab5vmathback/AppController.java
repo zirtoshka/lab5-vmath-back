@@ -31,31 +31,33 @@ public class AppController {
 
         //todo
         BigDecimal[] listX=new BigDecimal[]{
-//                BigDecimal.valueOf(0.1),
-//                BigDecimal.valueOf(0.2),
-//                BigDecimal.valueOf(0.3),
-//                BigDecimal.valueOf(0.4),
-//                BigDecimal.valueOf(0.5),
-                //----
-                BigDecimal.valueOf(0.15),
+                BigDecimal.valueOf(0.1),
                 BigDecimal.valueOf(0.2),
-                BigDecimal.valueOf(0.33),
-                BigDecimal.valueOf(0.47)
+                BigDecimal.valueOf(0.3),
+                BigDecimal.valueOf(0.4),
+                BigDecimal.valueOf(0.5),
+                //----
+//                BigDecimal.valueOf(0.15),
+//                BigDecimal.valueOf(0.2),
+//                BigDecimal.valueOf(0.33),
+//                BigDecimal.valueOf(0.47)
         };
         BigDecimal[] listY=new BigDecimal[]{
-//                BigDecimal.valueOf(1.25),
-//                BigDecimal.valueOf(2.38),
-//                BigDecimal.valueOf(3.79),
-//                BigDecimal.valueOf(5.44),
-//                BigDecimal.valueOf(7.14),
-                //---
                 BigDecimal.valueOf(1.25),
                 BigDecimal.valueOf(2.38),
                 BigDecimal.valueOf(3.79),
-                BigDecimal.valueOf(5.44)
+                BigDecimal.valueOf(5.44),
+                BigDecimal.valueOf(7.14),
+                //---
+//                BigDecimal.valueOf(1.25),
+//                BigDecimal.valueOf(2.38),
+//                BigDecimal.valueOf(3.79),
+//                BigDecimal.valueOf(5.44)
         };
 //        BigDecimal x=BigDecimal.valueOf(0.35);
-        BigDecimal x=BigDecimal.valueOf(0.22);
+//        BigDecimal x=BigDecimal.valueOf(0.22);
+        BigDecimal x=BigDecimal.valueOf(0.28);
+
 
         interpolationManager.setListX(listX);
         interpolationManager.setListY(listY);

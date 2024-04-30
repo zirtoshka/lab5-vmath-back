@@ -2,6 +2,7 @@ package puk.lab5vmathback.utils;
 
 import lombok.Getter;
 import lombok.Setter;
+import puk.lab5vmathback.exc.WrongStepsListXException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,18 +24,28 @@ public class InterpolationManager {
     private final LagrangePolynomial lagrangePolynomial=new LagrangePolynomial();
     private final FiniteDifferences finiteDifferences=new FiniteDifferences();
     private final NewtonSeparatedDiffPolynomial newtonSeparatedDiffPolynomial=new NewtonSeparatedDiffPolynomial();
+    private final GaussPolynomial gaussPolynomial=new GaussPolynomial();
 
-    public BigDecimal getSolve(){
+    public BigDecimal getSolve()  {
         if (method==1){
-//            finiteDifferences.setListX(listX);
-//            finiteDifferences.setListY(listY);
-//            List<BigDecimal> finiteDiff=finiteDifferences.getFiniteDiff();
-//            for (BigDecimal diff: finiteDiff){
-//                System.out.println(diff);
-//            }
-            newtonSeparatedDiffPolynomial.setListX(listX);
-            newtonSeparatedDiffPolynomial.setListY(listY);
-            System.out.println(newtonSeparatedDiffPolynomial.getFun(listX,listY,x)+" it's newton");
+            finiteDifferences.setListX(listX);
+            finiteDifferences.setListY(listY);
+            List<BigDecimal> finiteDiff=finiteDifferences.getFiniteDiff();
+            System.out.println("diff:");
+            for (BigDecimal diff: finiteDiff){
+                System.out.println(diff);
+            }
+            System.out.println();
+//            newtonSeparatedDiffPolynomial.setListX(listX);
+//            newtonSeparatedDiffPolynomial.setListY(listY);
+//            System.out.println(newtonSeparatedDiffPolynomial.getFun(listX,listY,x)+" it's newton");
+            try {
+                gaussPolynomial.setFiniteDiff(finiteDiff);
+                System.out.println(gaussPolynomial.getFun(listX,listY,x)+" it's gauss");
+            }catch (WrongStepsListXException e){
+                System.out.println("error aaaaaa");
+            }
+
             return lagrangePolynomial.getFun(listX,listY,x);
         }
         return BigDecimal.ONE;
