@@ -14,9 +14,10 @@ public class GaussPolynomial implements Polynomial {
     @Setter
     private List<BigDecimal> finiteDiff;
 
+    private final PolynomialIntervalsChecker polynomialIntervalsChecker=new PolynomialIntervalsChecker();
 
     public BigDecimal getFun(BigDecimal[] listX, BigDecimal[] listY, BigDecimal x) throws WrongStepsListXException {
-        boolean check = checkStepsX(listX);
+        boolean check = polynomialIntervalsChecker.checkStepsX(listX);
         if (!check) {
             throw new WrongStepsListXException();
         }
@@ -33,23 +34,12 @@ public class GaussPolynomial implements Polynomial {
 
             res = xLessMediumFormula(x, mediumX, step, numberOfPoints);
         }
+        System.out.println("first "+xMoreMediumFormula(x, mediumX, step, numberOfPoints));
+        System.out.println("second "+xLessMediumFormula(x, mediumX, step, numberOfPoints));
 
         return res;
     }
 
-    private boolean checkStepsX(BigDecimal[] listX) {
-        BigDecimal step = listX[1].subtract(listX[0]);
-        if (step.compareTo(BigDecimal.ZERO) == 0) return false;
-        BigDecimal tmpStep;
-        for (int i = 2; i < listX.length; i++) {
-
-            tmpStep = listX[i].subtract(listX[i - 1]);
-            if (tmpStep.compareTo(step) != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     private BigDecimal xMoreMediumFormula(BigDecimal x, BigDecimal medium, BigDecimal step, int numberOfPoints) {//first formula
         BigDecimal multiplierWithT = BigDecimal.ONE;

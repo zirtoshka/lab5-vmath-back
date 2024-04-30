@@ -25,7 +25,7 @@ public class InterpolationManager {
     private final FiniteDifferences finiteDifferences=new FiniteDifferences();
     private final NewtonSeparatedDiffPolynomial newtonSeparatedDiffPolynomial=new NewtonSeparatedDiffPolynomial();
     private final GaussPolynomial gaussPolynomial=new GaussPolynomial();
-
+private final StirlingPolynomial stirlingPolynomial=new StirlingPolynomial();
     public BigDecimal getSolve()  {
         if (method==1){
             finiteDifferences.setListX(listX);
@@ -42,6 +42,10 @@ public class InterpolationManager {
             try {
                 gaussPolynomial.setFiniteDiff(finiteDiff);
                 System.out.println(gaussPolynomial.getFun(listX,listY,x)+" it's gauss");
+
+                stirlingPolynomial.setFiniteDiff(finiteDiff);
+                System.out.println(stirlingPolynomial.getFun(listX,listY,x)+" it's stirling");
+
             }catch (WrongStepsListXException e){
                 System.out.println("error aaaaaa");
             }
