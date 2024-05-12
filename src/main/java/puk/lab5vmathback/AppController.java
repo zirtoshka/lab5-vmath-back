@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import puk.lab5vmathback.utils.InterpolationManager;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/app-controller")
@@ -73,7 +74,8 @@ public class AppController {
         interpolationManager.setListY(listY);
         interpolationManager.setX(x);
 
-        response+=interpolationManager.getSolve().toString();
+        response+=  "{\"resiki\": "+ Arrays.toString(interpolationManager.getSolve())+",\n";
+        response+="\"grafiki\": "+interpolationManager.getGraphs()+"}";
 
         return new ResponseEntity<>(response, httpHeaders, HttpStatus.OK);
 
