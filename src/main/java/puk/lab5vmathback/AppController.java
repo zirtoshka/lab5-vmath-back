@@ -1,5 +1,6 @@
 package puk.lab5vmathback;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 import org.springframework.http.HttpHeaders;
@@ -7,9 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import puk.lab5vmathback.utils.InterpolationManager;
+import puk.lab5vmathback.utils.RequestInfo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.function.LongBinaryOperator;
 
 @RestController
 @RequestMapping("/app-controller")
@@ -25,57 +31,27 @@ public class AppController {
     }
 
     @PostMapping
-    public ResponseEntity<String> getInterpolation(String string){
+    public ResponseEntity<String> getInterpolation(@Valid @RequestBody RequestInfo requestInfo){
         String response="";
         final HttpHeaders httpHeaders=new HttpHeaders();
-        interpolationManager.setMethod(1);
 
-        //todo
-        BigDecimal[] listX=new BigDecimal[]{
-                BigDecimal.valueOf(0.1),
-                BigDecimal.valueOf(0.2),
-                BigDecimal.valueOf(0.3),
-                BigDecimal.valueOf(0.4),
-                BigDecimal.valueOf(0.5),
-                //----
-                BigDecimal.valueOf(0.6),
-                BigDecimal.valueOf(0.7),
-                BigDecimal.valueOf(0.8)
+        BigDecimal[] listX = new ArrayList<>(Arrays.asList(requestInfo.getX())).toArray(new BigDecimal[0]);
+        BigDecimal[] listY = new ArrayList<>(Arrays.asList(requestInfo.getY())).toArray(new BigDecimal[0]);
+        BigDecimal xInterpol = requestInfo.getInterpolX();
 
-                //-----
-//                BigDecimal.valueOf(0.15),
-//                BigDecimal.valueOf(0.2),
-//                BigDecimal.valueOf(0.33),
-//                BigDecimal.valueOf(0.47)
-        };
-        BigDecimal[] listY=new BigDecimal[]{
-                BigDecimal.valueOf(1.25),
-                BigDecimal.valueOf(2.38),
-                BigDecimal.valueOf(3.79),
-                BigDecimal.valueOf(5.44),
-                BigDecimal.valueOf(7.14),
-                //---
-                BigDecimal.valueOf(8.64),
-                BigDecimal.valueOf(10.39),
-                BigDecimal.valueOf(12.09)
-
-                //----
-//                BigDecimal.valueOf(1.25),
-//                BigDecimal.valueOf(2.38),
-//                BigDecimal.valueOf(3.79),
-//                BigDecimal.valueOf(5.44)
-        };
-//        BigDecimal x=BigDecimal.valueOf(0.35);
-//        BigDecimal x=BigDecimal.valueOf(0.22);
-        BigDecimal x=BigDecimal.valueOf(0.28);
-
-
+        long uniqueCount = Arrays.stream(listX)
+                .distinct()
+                .count();
+        if (listX.length!=uniqueCount || listX.length==0){
+            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
+        }
         interpolationManager.setListX(listX);
         interpolationManager.setListY(listY);
-        interpolationManager.setX(x);
+        interpolationManager.setX(xInterpol);
 
         response+=  "{\"resiki\": "+ Arrays.toString(interpolationManager.getSolve())+",\n";
-        response+="\"grafiki\": "+interpolationManager.getGraphs()+"}";
+        response+="\"grafiki\": "+interpolationManager.getGraphs()+",\n";
+         response+= "\"finiteDiff\": "+interpolationManager.getFiniteDiff()+ "}";
 
         return new ResponseEntity<>(response, httpHeaders, HttpStatus.OK);
 

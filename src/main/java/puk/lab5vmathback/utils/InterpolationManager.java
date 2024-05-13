@@ -31,6 +31,8 @@ public class InterpolationManager {
     @Setter
     private BigDecimal lagrangeRes;
     private final FiniteDifferences finiteDifferences = new FiniteDifferences();
+    @Getter
+    private List<BigDecimal> finiteDiff;
     private final NewtonSeparatedDiffPolynomial newtonSeparatedDiffPolynomial = new NewtonSeparatedDiffPolynomial();
     @Getter
     @Setter
@@ -54,29 +56,27 @@ public class InterpolationManager {
         finiteDifferences.setListY(listY);
         newtonSeparatedDiffPolynomial.setListX(listX);
         newtonSeparatedDiffPolynomial.setListY(listY);
-        List<BigDecimal> finiteDiff = finiteDifferences.getFiniteDiff();
+        this.finiteDiff = finiteDifferences.getFiniteDiff();
 
         lagrangeRes = lagrangePolynomial.getFun(listX, listY, x);
         newtonRes = newtonSeparatedDiffPolynomial.getFun(listX, listY, x);
         try {
             gaussPolynomial.setFiniteDiff(finiteDiff);
             gaussRes = gaussPolynomial.getFun(listX, listY, x);
-            System.out.println(gaussPolynomial + " it's gauss");
             try {
                 stirlingPolynomial.setFiniteDiff(finiteDiff);
                 stirlingRes = stirlingPolynomial.getFun(listX, listY, x);
-                System.out.println(stirlingRes + " it's stirling");
-            } catch (IncorrectNumberOfPoints e) {
-                System.out.println("stirling bebebeb");
+            } catch
+            (IncorrectNumberOfPoints e) {
+                System.out.println("error: stirling cant work");
             }
             besselPolynomial.setFiniteDiff(finiteDiff);
             besselRes = besselPolynomial.getFun(listX, listY, x);
-            System.out.println(besselRes + " it's bessel");
 
         } catch (WrongStepsListXException e) {
-            System.out.println("error aaaaaa");
+            System.out.println("error: bad step");
         } catch (IncorrectNumberOfPoints e) {
-            System.out.println("bessel bebebebe");
+            System.out.println("bessel can't work");
         }
 
 
@@ -103,7 +103,7 @@ public class InterpolationManager {
         ArrayList<BigDecimal> newtonRes = new ArrayList<>();
         ArrayList<BigDecimal> gaussRes=new ArrayList<>();
         ArrayList<BigDecimal> xRes=new ArrayList<>();
-        while (miniX.compareTo(maxiX)<0){
+        while (miniX.compareTo(maxiX)<=0){
             newtonRes.add(newtonSeparatedDiffPolynomial.getFun(listX,listY,miniX));
             gaussRes.add(newtonSeparatedDiffPolynomial.getFun(listX,listY,miniX));
             xRes.add(miniX);

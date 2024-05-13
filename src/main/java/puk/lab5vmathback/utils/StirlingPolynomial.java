@@ -56,7 +56,6 @@ public class StirlingPolynomial  implements Polynomial{
             tmpFromLess= multiplierTLess.multiply(finiteDiff.get(i%2==0? jMore: jMore-1))
                     .divide(BigDecimal.valueOf(fact), MathContext.DECIMAL32);
 
-//            System.out.println(multiplierWithT+" "+fact+" "+finiteDiff.get(j));
             res = res.add(
                     tmpFromMore.add(tmpFromLess).divide(BigDecimal.valueOf(2), MathContext.DECIMAL32)
             );

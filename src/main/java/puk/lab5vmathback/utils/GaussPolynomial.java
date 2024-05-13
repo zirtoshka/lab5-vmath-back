@@ -34,8 +34,6 @@ public class GaussPolynomial implements Polynomial {
 
             res = xLessMediumFormula(x, mediumX, step, numberOfPoints);
         }
-        System.out.println("first "+xMoreMediumFormula(x, mediumX, step, numberOfPoints));
-        System.out.println("second "+xLessMediumFormula(x, mediumX, step, numberOfPoints));
 
         return res;
     }
@@ -63,7 +61,6 @@ public class GaussPolynomial implements Polynomial {
 
             }
 
-//            System.out.println(multiplierWithT+" "+fact+" "+finiteDiff.get(j));
             res = res.add(
                     multiplierWithT.multiply(finiteDiff.get(j))
                             .divide(BigDecimal.valueOf(fact), MathContext.DECIMAL32)
@@ -82,7 +79,6 @@ public class GaussPolynomial implements Polynomial {
         int shiftJ = numberOfPoints - 1;
         BigDecimal k = BigDecimal.ZERO;
         BigDecimal res = finiteDiff.get((numberOfPoints + 1) / 2 - 1);
-        System.out.println(res);
         int fact = 1;
         for (int i = 1; i < numberOfPoints; i++) {
             if (i > 1 && i % 2 != 0) {
@@ -98,7 +94,6 @@ public class GaussPolynomial implements Polynomial {
 
             }
 
-//            System.out.println(multiplierWithT+" "+fact+" "+finiteDiff.get(j)+" j "+j);
             res = res.add(
                     multiplierWithT.multiply(finiteDiff.get(j))
                             .divide(BigDecimal.valueOf(fact), MathContext.DECIMAL32)
